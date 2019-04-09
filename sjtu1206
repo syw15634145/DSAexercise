@@ -1,0 +1,32 @@
+#include <iostream>
+#include <stack>
+#include <cstring>
+using namespace std;
+int main()
+{
+    stack <int> s;
+    stack <int> cup;
+    char nmd[100];
+    int k,a=0;
+    bool flag=true;
+    cin>>k;
+    while (k-- && cin>>nmd)
+        {
+            if (strcmp(nmd,"begin")==0)  {if(!s.empty()&&s.top()==3) {flag=false;break;}
+                else{s.push(1);cup.push(a);a=0;}
+                }
+            if (strcmp(nmd,"end")==0)  {if (!s.empty()&&s.top()==1) {s.pop();a=cup.top();cup.pop();}
+                  else {flag=false;break;}
+                }
+            if (strcmp(nmd,"if")==0)  {s.push(3);}
+            if (strcmp(nmd,"then")==0)  { 
+                if (!s.empty()&&s.top()==3) {s.pop();a++;}
+                else {flag=false;break;}
+                }
+            if (strcmp(nmd,"else")==0)  {if (a>0) a--;
+                else {flag=false;break;}
+                }
+        }
+    if (s.empty()&&flag) cout<<"YES";
+    else cout<<"NO";
+}
